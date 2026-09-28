@@ -43,13 +43,13 @@ function Navbar() {
         <Link
           to="/"
           className="flex items-center gap-2.5"
-          aria-label="CrowdCare home"
+          aria-label="Yatra Saarthi home"
         >
           <span className="grid size-10 place-items-center rounded-xl bg-brand-600 text-white shadow-lg shadow-blue-600/20">
             <HeartHandshake className="size-5" />
           </span>
           <span className="text-xl font-extrabold tracking-tight text-slate-950">
-            Crowd<span className="text-brand-600">Care</span>
+            Yatra Saarthi
           </span>
         </Link>
 

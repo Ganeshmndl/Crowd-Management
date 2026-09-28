@@ -8,9 +8,21 @@ import {
 } from "lucide-react";
 
 const trustItems = [
-  [ShieldCheck, "Verified coordination", "Reports are reviewed by trusted event committees."],
-  [UsersRound, "Community response", "Families and volunteers stay connected in real time."],
-  [LockKeyhole, "Privacy by design", "Sensitive case details stay within authorized workflows."],
+  [
+    ShieldCheck,
+    "Verified coordination",
+    "Reports are reviewed by trusted event committees.",
+  ],
+  [
+    UsersRound,
+    "Community response",
+    "Families and volunteers stay connected in real time.",
+  ],
+  [
+    LockKeyhole,
+    "Privacy by design",
+    "Sensitive case details stay within authorized workflows.",
+  ],
 ];
 
 function AuthLayout({ eyebrow, title, description, children }) {
@@ -20,11 +32,17 @@ function AuthLayout({ eyebrow, title, description, children }) {
         <aside className="relative hidden overflow-hidden bg-slate-950 p-12 text-white lg:flex lg:flex-col">
           <div className="hero-grid absolute inset-0 opacity-50" />
           <div className="absolute -left-28 top-1/3 size-96 rounded-full bg-brand-600/20 blur-3xl" />
-          <Link to="/" className="relative flex items-center gap-2.5" aria-label="CrowdCare home">
+          <Link
+            to="/"
+            className="relative flex items-center gap-2.5"
+            aria-label="Yatra Saarthi home"
+          >
             <span className="grid size-10 place-items-center rounded-xl bg-brand-600">
               <HeartHandshake className="size-5" />
             </span>
-            <span className="text-xl font-extrabold tracking-tight">CrowdCare</span>
+            <span className="text-xl font-extrabold tracking-tight">
+              Yatra Saarthi
+            </span>
           </Link>
 
           <div className="relative my-auto max-w-lg">
@@ -36,7 +54,7 @@ function AuthLayout({ eyebrow, title, description, children }) {
             </h2>
             <p className="mt-5 leading-7 text-slate-400">
               Report concerns, receive verified updates, and coordinate with
-              event safety teams through CrowdCare.
+              event safety teams through Yatra Saarthi.
             </p>
             <div className="mt-10 space-y-6">
               {trustItems.map(([Icon, itemTitle, itemDescription]) => (
@@ -46,7 +64,9 @@ function AuthLayout({ eyebrow, title, description, children }) {
                   </span>
                   <div>
                     <h3 className="text-sm font-bold">{itemTitle}</h3>
-                    <p className="mt-1 text-xs leading-5 text-slate-400">{itemDescription}</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-400">
+                      {itemDescription}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -65,17 +85,26 @@ function AuthLayout({ eyebrow, title, description, children }) {
               <span className="grid size-9 place-items-center rounded-xl bg-brand-600 text-white">
                 <HeartHandshake className="size-4" />
               </span>
-              <span className="font-extrabold tracking-tight">CrowdCare</span>
+              <span className="font-extrabold tracking-tight">
+                Yatra Saarthi
+              </span>
             </Link>
-            <Link to="/" className="ml-auto text-sm font-semibold text-slate-500 transition hover:text-brand-600">
+            <Link
+              to="/"
+              className="ml-auto text-sm font-semibold text-slate-500 transition hover:text-brand-600"
+            >
               Back to home
             </Link>
           </header>
 
           <div className="flex flex-1 items-center justify-center px-5 pb-16 pt-6 sm:px-8">
             <div className="w-full max-w-md">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">{eyebrow}</p>
-              <h1 className="mt-3 text-3xl font-bold tracking-[-0.035em] text-slate-950 sm:text-4xl">{title}</h1>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+                {eyebrow}
+              </p>
+              <h1 className="mt-3 text-3xl font-bold tracking-[-0.035em] text-slate-950 sm:text-4xl">
+                {title}
+              </h1>
               <p className="mt-3 leading-7 text-slate-600">{description}</p>
               <div className="mt-8">{children}</div>
             </div>

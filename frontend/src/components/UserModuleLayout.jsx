@@ -46,7 +46,7 @@ function UserModuleLayout({ title, description, actions, children }) {
               <HeartHandshake className="size-4" />
             </span>
             <span className="hidden font-extrabold tracking-tight sm:inline">
-              CrowdCare
+              Yatra Saarthi
             </span>
           </Link>
 
