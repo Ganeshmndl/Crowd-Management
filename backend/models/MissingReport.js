@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import {
+  indianMobileErrorMessage,
+  isValidIndianMobile,
+} from "../utils/validators.js";
 
 const missingReportSchema = new mongoose.Schema(
   {
@@ -29,12 +33,18 @@ const missingReportSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      match: [/^9[6-8]\d{8}$/, "Please enter a valid Nepal mobile number"],
+      validate: {
+        validator: (value) => isValidIndianMobile(value),
+        message: indianMobileErrorMessage,
+      },
     },
     secondaryContactNumber: {
       type: String,
       trim: true,
-      match: [/^9[6-8]\d{8}$/, "Please enter a valid Nepal mobile number"],
+      validate: {
+        validator: (value) => !value || isValidIndianMobile(value),
+        message: indianMobileErrorMessage,
+      },
       default: null,
     },
     lastSeenLocation: {

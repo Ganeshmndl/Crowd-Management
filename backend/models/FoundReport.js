@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import {
+  indianMobileErrorMessage,
+  isValidIndianMobile,
+} from "../utils/validators.js";
 
 const foundReportSchema = new mongoose.Schema(
   {
@@ -41,7 +45,10 @@ const foundReportSchema = new mongoose.Schema(
       type: String,
       trim: true,
       default: "",
-      match: [/^9[6-8]\d{8}$/, "Please enter a valid Nepal mobile number"],
+      validate: {
+        validator: (value) => !value || isValidIndianMobile(value),
+        message: indianMobileErrorMessage,
+      },
     },
     description: { type: String, trim: true, maxlength: 2000, default: "" },
     status: {

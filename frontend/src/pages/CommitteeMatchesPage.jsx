@@ -8,6 +8,11 @@ import { Select } from "@/components/ui/select";
 import useAuth from "@/hooks/useAuth";
 import { apiRequest } from "@/lib/api";
 import { formatDate, getEventName, matchStatuses } from "@/lib/committee";
+import {
+  indianMobileErrorMessage,
+  isValidIndianMobile,
+  normalizeIndianMobile,
+} from "@/lib/validators";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -57,12 +62,21 @@ function CommitteeMatchesPage() {
 
   const prepareReunification = async () => {
     try {
+      if (!isValidIndianMobile(prepForm.committeeContactNumber)) {
+        setError(indianMobileErrorMessage);
+        return;
+      }
       const data = await apiRequest(
         `/committee/matches/${selectedMatch._id}/prepare-reunification`,
         {
           method: "PATCH",
           headers: { Authorization: `Bearer ${token}` },
-          body: JSON.stringify(prepForm),
+          body: JSON.stringify({
+            ...prepForm,
+            committeeContactNumber: normalizeIndianMobile(
+              prepForm.committeeContactNumber,
+            ),
+          }),
         },
       );
       setMatches((current) =>
@@ -261,7 +275,7 @@ function CommitteeMatchesPage() {
                     committeeContactNumber: e.target.value,
                   })
                 }
-                placeholder="98XXXXXXXX"
+                placeholder="98765 43210"
                 required
               />
             </div>

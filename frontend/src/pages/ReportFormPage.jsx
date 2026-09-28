@@ -11,14 +11,17 @@ import { Textarea } from "@/components/ui/textarea";
 import useAuth from "@/hooks/useAuth";
 import { apiRequest } from "@/lib/api";
 import { generateFaceDescriptor, loadFaceModels } from "@/lib/faceUtils";
-import { isValidIndianMobile, normalizeIndianMobile } from "@/lib/validators";
+import {
+  indianMobileErrorMessage,
+  isValidIndianMobile,
+  normalizeIndianMobile,
+} from "@/lib/validators";
 
 const phoneFields = new Set([
   "contactNumber",
   "secondaryContactNumber",
   "reporterMobile",
 ]);
-const invalidPhoneMessage = "Enter a valid 10-digit Indian mobile number";
 
 const configs = {
   missing: {
@@ -165,7 +168,7 @@ function ReportFormPage({ type }) {
 
     for (const field of phoneFields) {
       if (form[field] && !isValidIndianMobile(form[field])) {
-        setError(invalidPhoneMessage);
+        setError(indianMobileErrorMessage);
         return;
       }
     }

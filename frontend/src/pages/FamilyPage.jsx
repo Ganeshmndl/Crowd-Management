@@ -8,6 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import useAuth from "@/hooks/useAuth";
 import { apiRequest } from "@/lib/api";
+import {
+  indianMobileErrorMessage,
+  isValidIndianMobile,
+  normalizeIndianMobile,
+} from "@/lib/validators";
 
 const initialForm = {
   name: "",
@@ -62,8 +67,14 @@ function FamilyPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
+    if (form.phone && !isValidIndianMobile(form.phone)) {
+      setError(indianMobileErrorMessage);
+      return;
+    }
     const payload = new FormData();
-    Object.entries(form).forEach(([key, value]) => payload.append(key, value));
+    Object.entries(form).forEach(([key, value]) =>
+      payload.append(key, key === "phone" ? normalizeIndianMobile(value) : value),
+    );
     if (photo) payload.append("photo", photo);
 
     setSubmitting(true);

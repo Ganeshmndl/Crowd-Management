@@ -9,6 +9,7 @@ import {
   requireAssignedEvents,
 } from "../utils/committeeHelpers.js";
 import { createNotification } from "./notificationController.js";
+import { normalizeIndianMobile } from "../utils/validators.js";
 
 const reportModels = {
   missing: MissingReport,
@@ -163,7 +164,8 @@ const updateReportReview = async (req, res) => {
     report.status = type === "missing" ? "found" : "reunited";
   }
 
-  await report.save();
+  // Verification changes review metadata, not the reporter's phone; preserve legacy stored values.
+  await report.save({ validateModifiedOnly: true });
   await report.populate([
     { path: "userId", select: "name email" },
     { path: "eventId", select: "name venue district" },
@@ -513,7 +515,7 @@ const prepareReunification = async (req, res) => {
   match.ticketId = ticketId;
   match.helpDeskLocation = helpDeskLocation;
   match.committeeContactName = committeeContactName;
-  match.committeeContactNumber = committeeContactNumber;
+  match.committeeContactNumber = normalizeIndianMobile(committeeContactNumber);
   match.meetingTime = new Date(meetingTime);
   match.matchNotes = matchNotes;
   match.reunificationStatus = "awaiting_reunification";

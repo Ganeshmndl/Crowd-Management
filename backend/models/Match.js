@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import {
+  indianMobileErrorMessage,
+  isValidIndianMobile,
+} from "../utils/validators.js";
 
 const matchSchema = new mongoose.Schema({
   missingReportId: {
@@ -52,6 +56,10 @@ const matchSchema = new mongoose.Schema({
   committeeContactNumber: {
     type: String,
     trim: true,
+    validate: {
+      validator: (value) => !value || isValidIndianMobile(value),
+      message: indianMobileErrorMessage,
+    },
   },
   helpDeskLocation: {
     type: String,

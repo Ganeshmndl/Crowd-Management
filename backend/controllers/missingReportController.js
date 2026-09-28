@@ -5,6 +5,7 @@ import {
   requireSelectedEvent,
   uploadedPhoto,
 } from "../utils/recordHelpers.js";
+import { normalizeIndianMobile } from "../utils/validators.js";
 import { createNotification } from "./notificationController.js";
 
 const fields = [
@@ -23,7 +24,12 @@ const bodyFields = (body) =>
   Object.fromEntries(
     fields
       .filter((field) => body[field] !== undefined)
-      .map((field) => [field, body[field]]),
+      .map((field) => [
+        field,
+        ["contactNumber", "secondaryContactNumber"].includes(field)
+          ? normalizeIndianMobile(body[field])
+          : body[field],
+      ]),
   );
 
 const sanitizeReport = (report, userRole) => {
@@ -122,7 +128,7 @@ const updateMissingReport = async (req, res) => {
   const oldPhoto = report.photo?.toObject?.() || report.photo;
   Object.assign(report, bodyFields(req.body));
   if (req.file) report.photo = uploadedPhoto(req.file);
-  
+
   if (req.body.faceDescriptor) {
     try {
       report.faceDescriptor = JSON.parse(req.body.faceDescriptor);

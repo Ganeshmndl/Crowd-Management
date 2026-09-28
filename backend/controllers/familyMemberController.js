@@ -3,13 +3,21 @@ import {
   deleteCloudinaryPhoto,
   uploadedPhoto,
 } from "../utils/recordHelpers.js";
+import { normalizeIndianMobile } from "../utils/validators.js";
 
 const fields = ["name", "relation", "age", "phone", "medicalNotes"];
 const bodyFields = (body) =>
   Object.fromEntries(
     fields
       .filter((field) => body[field] !== undefined)
-      .map((field) => [field, body[field] === "" && field === "age" ? null : body[field]]),
+      .map((field) => [
+        field,
+        field === "age" && body[field] === ""
+          ? null
+          : field === "phone"
+            ? normalizeIndianMobile(body[field])
+            : body[field],
+      ]),
   );
 
 const getFamilyMembers = async (req, res) => {
