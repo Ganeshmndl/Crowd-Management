@@ -84,9 +84,6 @@ const matchSchema = new mongoose.Schema({
   },
 });
 
-matchSchema.index(
-  { missingReportId: 1, foundReportId: 1 },
-  { unique: true },
-);
+matchSchema.index({ missingReportId: 1, foundReportId: 1 }, { unique: true });
 
 export default mongoose.model("Match", matchSchema);
